@@ -1,0 +1,36 @@
+@import "./variable.scss";
+
+body {
+    padding: 0px;
+    margin: Opx;
+    line-height: 1.5;
+    color: $gray-0;
+    font-size: $size-14;
+    background-color: $gray-10;
+    transition: all 0.3s;
+    font-family: Avenir, Helvetica, Arial, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+p {
+
+    padding: 0;
+    margin: 0;
+}
+li {
+    list-style: none;
+}
+img {
+    padding: 0;
+    margin: 0;
+    display: block;
+}
+a {
+    &:hover {
+        text-decoration: underline;
+    }
+}
+
+input, textarea {
+    outline: none;
+}
