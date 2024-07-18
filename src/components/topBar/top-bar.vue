@@ -48,8 +48,10 @@
     }
     .user {
         width: 300px;
+        display: flex;
+        justify-content: flex-end;
+        padding-right: 50px;
         .user-head {
-            float: right;
             border-radius: 50%;
             height: 36px;
             width: 36px;
