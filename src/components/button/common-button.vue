@@ -25,11 +25,11 @@ $border-radius: 24px;
     border: none;
 }
 
-.size-minin {
+@mixin size-mixin {
     @content;
 }
 .max {
-    @include size-minin {
+    @include size-mixin {
         min-width: 100px;
         height: 48px;
         border-radius: 24px;
@@ -38,7 +38,7 @@ $border-radius: 24px;
 }
 
 .base {
-    @include size-minin {
+    @include size-mixin {
         min-width: 80px;
         height: 36px;
         border-radius: 24px;

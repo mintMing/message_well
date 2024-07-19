@@ -1,9 +1,11 @@
 import topBar from "./topBar/top-bar.vue";
 import CommonButton from "./button/common-button.vue";
+import footBar from "./footBar/foot-bar.vue";
 
 const allGloablComponent = {
     topBar,
     CommonButton,
+    footBar,
 };
 
 const aGCObj = {

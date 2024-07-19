@@ -8,6 +8,7 @@
             loop="loop"
         ></video>
         <router-view></router-view>
+        <footBar></footBar>
     </div>
 </template>
 
@@ -19,7 +20,7 @@
         position: fixed;
         top: 0;
         left: 0;
-        z-index: 0;
+        z-index: -1;
         height: 800px;
     }
 }

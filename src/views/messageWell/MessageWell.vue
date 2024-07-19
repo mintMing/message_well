@@ -8,6 +8,6 @@
 
 <style scoped lang="scss">
 .wall-message {
-    height: 2000px;
+    height: 700px;
 }
 </style>
