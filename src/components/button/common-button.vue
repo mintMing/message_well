@@ -18,50 +18,63 @@ defineProps({
 </script>
 
 <style scoped lang="scss">
+$border-radius: 24px;
+
 .common-button {
     text-align: center;
     border: none;
 }
+
+.size-minin {
+    @content;
+}
 .max {
-    min-width: 100px;
-    height: 48px;
-    border-radius: 24px;
-    padding: 0 24px;
+    @include size-minin {
+        min-width: 100px;
+        height: 48px;
+        border-radius: 24px;
+        padding: 0 24px;
+    }
 }
 
 .base {
-    min-width: 80px;
-    height: 36px;
-    border-radius: 24px;
-    padding: 0 20px;
+    @include size-minin {
+        min-width: 80px;
+        height: 36px;
+        border-radius: 24px;
+        padding: 0 20px;
+    }
 }
 
 .small {
-    min-width: 100px;
-    height: 32px;
-    border-radius: 24px;
-    padding: 0 20px;
+    @include size-mixin {
+        min-width: 100px;
+
+        height: 32px;
+
+        padding: 0 20px;
+    }
 }
 
-.primary {
+.primary,
+.commonPrimary {
     background: $gray-1;
-    color: $gray-10;
-}
 
-.secondary {
-    background: $gray-10;
-    color: $gray-1;
-    border: 1px solid $gray-1;
+    color: $gray-10;
 }
 
 .commonPrimary {
-    background: $primary-color;
-    color: $gray-10;
     font-weight: 600;
 }
 
+.secondary,
 .commonSecondary {
     background: $gray-10;
+
     color: $gray-1;
+}
+
+.secondary {
+    border: 1px solid $gray-1;
 }
 </style>
