@@ -20,6 +20,9 @@
                 {{ e }}
             </p>
         </div>
+        <div class="card">
+            <nodeCard></nodeCard>
+        </div>
     </div>
 </template>
 
@@ -54,6 +57,7 @@ const selectcNode = (index) => {
     .label {
         display: flex;
         justify-content: center;
+        flex-wrap: wrap;
         margin-top: 40px;
         .label-list {
             padding: 0 14px;
