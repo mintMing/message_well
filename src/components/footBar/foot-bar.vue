@@ -71,6 +71,14 @@
         p {
             color: rgba(255, 255, 255, 0.5);
         }
+        .foot-left,
+        .link,
+        .foot-right {
+            .title {
+                font-size: $size-16;
+                padding-bottom: 12px;
+            }
+        }
         .foot-left {
             .logo {
                 display: flex;
@@ -101,10 +109,6 @@
         .link {
             padding: 0 40px;
             flex: 1;
-            .title {
-                font-size: $size-16;
-                padding-bottom: 12px;
-            }
             .line-inner {
                 a {
                     color: rgba(255, 255, 255, 0.5);
@@ -114,10 +118,6 @@
             }
         }
         .foot-right {
-            .title {
-                font-size: $size-16;
-                padding-bottom: 12px;
-            }
             .right-inner {
                 img {
                     width: 100px;
