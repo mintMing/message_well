@@ -49,32 +49,29 @@ $border-radius: 24px;
 .small {
     @include size-mixin {
         min-width: 100px;
-
         height: 32px;
-
         padding: 0 20px;
     }
 }
 
-.primary,
-.commonPrimary {
+.primary {
     background: $gray-1;
-
     color: $gray-10;
 }
-
 .commonPrimary {
+    background: $primary-color;
+    color: $gray-10;
     font-weight: 600;
 }
 
-.secondary,
 .commonSecondary {
     background: $gray-10;
-
     color: $gray-1;
 }
 
 .secondary {
+    background: $gray-10;
+    color: $gray-1;
     border: 1px solid $gray-1;
 }
 </style>
