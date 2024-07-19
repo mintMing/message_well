@@ -28,9 +28,22 @@
                 class="card-inner"
             ></nodeCard>
         </div>
-        <div class="add" :style="{ bottom: addBottom + 'px' }">
-            <span class="iconfont icon-tianjia"></span>
-        </div>
+        <Transition name="AniAdd">
+            <div
+                class="add"
+                :style="{ bottom: addBottom + 'px' }"
+                @click="changeModal"
+                v-show="!isModal"
+            >
+                <span class="iconfont icon-tianjia"></span>
+            </div>
+        </Transition>
+
+        <modal
+            :title="wallTitle"
+            @click="changeModal"
+            :isVisible="isModal"
+        ></modal>
     </div>
 </template>
 
@@ -43,6 +56,7 @@ import { debounce } from "../../utils/index.js";
 const id = ref(0); // 留言墙和照片墙切换
 const labelIdx = ref(-1); // 对应的标签
 const addBottom = ref(30); // add按钮距离底部高度
+const wallTitle = ref("写留言"); // 留言墙或照片墙
 
 // 标签的切换
 const selectcNode = (index) => {
@@ -51,16 +65,15 @@ const selectcNode = (index) => {
 
 /**
  * 动态调整主页添加留言的图标位置
+ * 防抖
  */
 const scrollBottom = () => {
     const scrollTop =
-        document.documentElement.scrollTop  || document.body.scrollTop;
+        document.documentElement.scrollTop || document.body.scrollTop;
     const clientHeight = document.documentElement.clientHeight;
     const scrollHeight = document.documentElement.scrollHeight;
     if (scrollTop + clientHeight + 230 >= scrollHeight) {
-        console.log("before: "+addBottom.value);
-        addBottom.value = (scrollTop + clientHeight + 230) - scrollHeight;
-        console.log("after: "+addBottom.value);
+        addBottom.value = scrollTop + clientHeight + 230 - scrollHeight;
     } else {
         addBottom.value = 30;
     }
@@ -75,6 +88,13 @@ onMounted(() => {
 onUnmounted(() => {
     window.removeEventListener("scroll", descrollBottom);
 });
+
+// 是否关闭弹窗
+const isModal = ref(false);
+const changeModal = () => {
+    console.log(true);
+    isModal.value = !isModal.value;
+};
 </script>
 
 <style scoped lang="scss">
@@ -168,6 +188,31 @@ onUnmounted(() => {
         .icon-tianjia {
             color: $gray-10;
             font-size: 24px;
+        }
+    }
+}
+
+.AniAdd {
+    &-enter {
+        &-from {
+            opacity: 0;
+        }
+        &-active {
+            transition: $tr ease-in;
+        }
+        &-to {
+            opacity: 1;
+        }
+    }
+    &-leave {
+        &-from {
+            opacity: 1;
+        }
+        &-active {
+            transition: $tr ease-out;
+        }
+        &-to {
+            opacity: 0;
         }
     }
 }
