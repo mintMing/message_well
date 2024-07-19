@@ -37,4 +37,17 @@ const label = [
     ],
 ];
 
-export { wallType, label };
+const cardColor = [
+    "rgba(255, 99, 71, 0.5)",
+    "rgba(54, 162, 235, 0.8)",
+    "rgba(75, 192, 192, 0.3)",
+    "rgba(153, 102, 255, 0.7)",
+    "rgba(255, 205, 86, 0.9)",
+    "rgba(205, 92, 92, 0.4)",
+    "rgba(77, 83, 96, 0.6)",
+    "rgba(240, 230, 140, 0.2)",
+    "rgba(128, 0, 0, 0.1)",
+    "rgba(128, 128, 0, 1)",
+];
+
+export { wallType, label, cardColor };

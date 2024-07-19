@@ -21,21 +21,28 @@
             </p>
         </div>
         <div class="card">
-            <nodeCard></nodeCard>
+            <nodeCard
+                v-for="(ele, index) in note.data"
+                :key="index"
+                :note="ele"
+                class="card-inner"
+            ></nodeCard>
         </div>
     </div>
 </template>
 
 <script setup>
 import { wallType, label } from "../../../mock/data.js";
-import { ref } from "vue";
+import { ref, computed } from "vue";
+import { note } from "../../../mock/index.js";
 
 const id = ref(0); // 留言墙和照片墙切换
 const labelIdx = ref(-1); // 对应的标签
-
+// 标签的切换
 const selectcNode = (index) => {
     labelIdx.value = index;
 };
+console.log(note.data)
 </script>
 
 <style scoped lang="scss">
@@ -69,12 +76,48 @@ const selectcNode = (index) => {
             margin: $padding-4;
             color: $gray-2;
             box-shadow: border-box;
+            // border-radius: 16px;
+            // min-width: 16px;
+            // @media (max-wdith: 768px) {
+            //     margin: 2px;
+            // }
         }
         .lbselected {
             color: $gray-1;
             font-weight: 600;
             border: 1px solid $gray-1;
-            border-radius: 14px;
+            // border-radius: 14px;
+            min-width: 16px;
+            border-radius: 16px;
+            // @media (max-wdith: 768px) {
+            //     border-radius: 10px;
+            // }
+        }
+    }
+    .card {
+        display: grid;
+        border: 1px solid red;
+        grid-template-columns: repeat(5, 1fr);
+        justify-content: center;
+        justify-items: center;
+        // grid-auto-flow: row dense;
+        padding-top: 28px;
+        margin-left: 100px;
+        margin-right: 100px;
+        // width: 100%;
+        // grid: 0;
+        .card-inner {
+            margin: 6px;
+        }
+    }
+    @media (max-width: 1300px) {
+        .card {
+            grid-template-columns: repeat(3, 1fr);
+        }
+    }
+    @media (max-width: 900px) {
+        .card {
+            grid-template-columns: repeat(1, 1fr);
         }
     }
 }

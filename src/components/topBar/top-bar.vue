@@ -50,6 +50,16 @@
             width: 30px;
             padding-left: 10px;
         }
+        @media (max-wdith: 768px) {
+            width: 200px;
+            .logo-name {
+                font-size: 16px;
+            }
+            .logo-img {
+                height: 24px;
+                width: 24px;
+            }
+        }
     }
     .user {
         width: 300px;
@@ -62,10 +72,23 @@
             width: 36px;
             background-image: linear-gradient(180deg, #7be7ff 2%, #1e85e2);
         }
+        @media (max-width: 768px) {
+            width: 200px;
+            padding-right: 20px;
+            .user-head {
+                height: 30px;
+                width: 30px;
+            }
+        }
     }
     .menu {
         .menu-mw {
             margin-right: 24px;
+            @media (max-width: 768px) {
+                padding: 0 16px;
+                height: 32px;
+                font-size: 14px;
+            }
         }
     }
 }

@@ -3,7 +3,7 @@
 </template>
 
 <script setup>
-import "./assets/fonts/iconfont.js";
+import "./assets/fonts/icon/iconfont.css";
 </script>
 
 <style scoped></style>
