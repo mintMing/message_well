@@ -1,6 +1,6 @@
 <template>
     <div class="wall-index">
-        <top-bar></top-bar>
+        <topBar></topBar>
         <video
             class="bg-view"
             src="@/assets/images/qm1.mp4"

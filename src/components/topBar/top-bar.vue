@@ -4,16 +4,21 @@
             <img class="logo-img" src="@/assets/images/logo.svg" alt="logo" />
             <p class="logo-name">mint</p>
         </div>
-        <div class="menu"></div>
+        <div class="menu">
+            <CommonButton class="menu-mw" state="commonPrimary">
+                留言墙
+            </CommonButton>
+            <CommonButton class="menu-pw" state="commonSecondary">
+                照片墙
+            </CommonButton>
+        </div>
         <div class="user">
             <div class="user-head"></div>
         </div>
     </div>
 </template>
 
-<script setup>
-// import "./assets/fonts/iconfont.js";
-</script>
+<script setup></script>
 
 <style scoped lang="scss">
 .top-bar {
@@ -56,6 +61,11 @@
             height: 36px;
             width: 36px;
             background-image: linear-gradient(180deg, #7be7ff 2%, #1e85e2);
+        }
+    }
+    .menu {
+        .menu-mw {
+            margin-right: 24px;
         }
     }
 }
