@@ -1,5 +1,8 @@
 <template>
-    <div class="node-card" :style="{ width: width, backgroundColor:cardColor[noteVal.imgurl] }">
+    <div
+        class="node-card"
+        :style="{ width: width, backgroundColor: cardColor[noteVal.imgurl] }"
+    >
         <div class="top">
             <p class="time">{{ formatDate(noteVal.moment) }}</p>
             <p class="label">{{ labelData[noteVal.type][noteVal.label] }}</p>
@@ -43,8 +46,6 @@ const props = defineProps({
 const noteVal = computed(() => {
     return props.note;
 });
-
-console.log(noteVal.value);
 </script>
 
 <style scoped lang="scss">
