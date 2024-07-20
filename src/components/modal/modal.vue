@@ -6,8 +6,8 @@
                 <span class="iconfont icon-guanbi" @click="closeModal"></span>
             </div>
             <main class="modal-main">
-                <!-- <slot class="slot"></slot> -->
-                <div class="slot"></div>
+                <slot></slot>
+                <!-- <div class="slot"></div> -->
             </main>
         </div>
     </Transition>
@@ -28,6 +28,7 @@ const props = defineProps({
 // 外部关闭模态框
 const emit = defineEmits(["close"]);
 const closeModal = () => {
+    console.log("modal")
     emit("close");
 };
 

@@ -1,17 +1,16 @@
-
-$primary-color: #3873F0; // 全局主色
+$primary-color: #3873f0; // 全局主色
 $link-color: #1890ff; // 链接色
-$success-color: #22BF87;  // 成色
-$warning-color: #F67770; // 警色
-$error-color: #F55151; // 错误色
-$like: #F67770;
+$success-color: #22bf87; // 成色
+$warning-color: #f67770; // 警色
+$error-color: #f55151; // 错误色
+$like: #f67770;
 
 // 中性色
 $gray-1: #202020;
-$gray-2:#5B5B5B; 
-$gray-3:#949494; 
-$gray-9:#F6F6F8; 
-$gray-10:#ffffff;
+$gray-2: #5b5b5b;
+$gray-3: #949494;
+$gray-9: #f6f6f8;
+$gray-10: #ffffff;
 
 // 间距
 $padding-4: 4px;
@@ -26,3 +25,33 @@ $size-16: 16px;
 
 // ani
 $tr: all 0.3s;
+
+$namespace: "mw" !default;
+$block-sel: "-" !default;
+$elem-sel: "__" !default;
+$mod-sel: "--" !default;
+
+@mixin b($block) {
+    $B: #{$namespace + $block-sel + $block};
+    .#{$B} {
+        @content;
+    }
+}
+
+@mixin e($elem) {
+    $selector: &;
+    @at-root {
+        #{$selector + $elem-sel + $el} {
+            @content;
+        }
+    }
+}
+
+@mixin m($mod) {
+    $selector: &;
+    @at-root {
+        #{$selector + $elem-sel + $mod} {
+            @content
+        }
+    }
+}

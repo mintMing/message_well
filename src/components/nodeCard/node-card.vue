@@ -49,13 +49,6 @@ const noteVal = computed(() => {
 </script>
 
 <style scoped lang="scss">
-@font-face {
-    font-family: "SO";
-    src:
-        url("@/assets/fonts/SmileySans-Oblique.woff") format("woff"),
-        url("@/assets/fonts/SmileySans-Oblique.ttf") format("truetype");
-    font-display: swap;
-}
 .node-card {
     height: 240px;
     padding: 10px 20px;

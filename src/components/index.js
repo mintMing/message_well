@@ -1,15 +1,17 @@
-import topBar from "./topBar/top-bar.vue";
+import TopBar from "./topBar/top-bar.vue";
 import CommonButton from "./button/common-button.vue";
-import footBar from "./footBar/foot-bar.vue";
-import nodeCard from "./nodeCard/node-card.vue";
-import modal from "./modal/modal.vue";
+import FootBar from "./footBar/foot-bar.vue";
+import NodeCard from "./nodeCard/node-card.vue";
+import Modal from "./modal/modal.vue";
+import NewCard from "./newCard/new-card.vue"
 
 const allGloablComponent = {
-    topBar,
+    TopBar,
     CommonButton,
-    footBar,
-    nodeCard,
-    modal,
+    FootBar,
+    NodeCard,
+    Modal,
+    NewCard
 };
 
 const aGCObj = {

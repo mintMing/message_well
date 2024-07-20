@@ -39,11 +39,9 @@
             </div>
         </Transition>
 
-        <modal
-            :title="wallTitle"
-            @click="changeModal"
-            :isVisible="isModal"
-        ></modal>
+        <Modal :title="wallTitle" @close="changeModal" :isVisible="isModal">
+            <NewCard></NewCard>
+        </Modal>
     </div>
 </template>
 
@@ -52,6 +50,7 @@ import { wallType, label } from "../../../mock/data.js";
 import { ref, computed, onMounted, onUnmounted } from "vue";
 import { note } from "../../../mock/index.js";
 import { debounce } from "../../utils/index.js";
+import NewCard from "../../components/newCard/new-card.vue";
 
 const id = ref(0); // 留言墙和照片墙切换
 const labelIdx = ref(-1); // 对应的标签
@@ -92,9 +91,9 @@ onUnmounted(() => {
 // 是否关闭弹窗
 const isModal = ref(false);
 const changeModal = () => {
-    console.log(true);
     isModal.value = !isModal.value;
 };
+
 </script>
 
 <style scoped lang="scss">
@@ -124,11 +123,14 @@ const changeModal = () => {
             align-items: center;
             height: 30px;
             // 减小上下抖动
-            line-height: 28px;
+            line-height: 30px;
             margin: $padding-4;
             color: $gray-2;
-            box-shadow: border-box;
-            // border-radius: 16px;
+            // box-shadow: border-box;
+            // 预先设置边框，避免点击时尺寸变化
+            border: 1px solid transparent;
+            border-radius: 16px;
+            transition: all 0.3s ease;
             // min-width: 16px;
             // @media (max-wdith: 768px) {
             //     margin: 2px;
@@ -137,7 +139,8 @@ const changeModal = () => {
         .lbselected {
             color: $gray-1;
             font-weight: 600;
-            border: 1px solid $gray-1;
+            // border: 1px solid $gray-1;
+            border-color: $gray-1;
             // border-radius: 14px;
             min-width: 16px;
             border-radius: 16px;
