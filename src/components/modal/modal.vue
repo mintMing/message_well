@@ -28,7 +28,7 @@ const props = defineProps({
 // 外部关闭模态框
 const emit = defineEmits(["close"]);
 const closeModal = () => {
-    console.log("modal")
+    console.log("modal");
     emit("close");
 };
 

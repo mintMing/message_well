@@ -1,3 +1,34 @@
+// $namespace: "mw" !default;
+$block-sel: "-" !default;
+$elem-sel: "__" !default;
+$mod-sel: "--" !default;
+
+@mixin b($namespace, $block) {
+    $B: #{$namespace + $block-sel + $block};
+    .#{$B} {
+        @content;
+    }
+}
+
+@mixin e($elem) {
+    $selector: &;
+    @at-root {
+        #{$selector + $elem-sel + $elem} {
+            @content;
+        }
+    }
+}
+
+@mixin m($mod) {
+    $selector: &;
+    @at-root {
+        #{$selector + $mod-sel + $mod } {
+            @content
+        }
+    }
+}
+
+
 $primary-color: #3873f0; // 全局主色
 $link-color: #1890ff; // 链接色
 $success-color: #22bf87; // 成色
@@ -26,32 +57,3 @@ $size-16: 16px;
 // ani
 $tr: all 0.3s;
 
-$namespace: "mw" !default;
-$block-sel: "-" !default;
-$elem-sel: "__" !default;
-$mod-sel: "--" !default;
-
-@mixin b($block) {
-    $B: #{$namespace + $block-sel + $block};
-    .#{$B} {
-        @content;
-    }
-}
-
-@mixin e($elem) {
-    $selector: &;
-    @at-root {
-        #{$selector + $elem-sel + $el} {
-            @content;
-        }
-    }
-}
-
-@mixin m($mod) {
-    $selector: &;
-    @at-root {
-        #{$selector + $elem-sel + $mod} {
-            @content
-        }
-    }
-}

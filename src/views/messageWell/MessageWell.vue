@@ -40,7 +40,7 @@
         </Transition>
 
         <Modal :title="wallTitle" @close="changeModal" :isVisible="isModal">
-            <NewCard></NewCard>
+            <NewCard :id="id" @addClose="changeModal"></NewCard>
         </Modal>
     </div>
 </template>
@@ -93,7 +93,6 @@ const isModal = ref(false);
 const changeModal = () => {
     isModal.value = !isModal.value;
 };
-
 </script>
 
 <style scoped lang="scss">

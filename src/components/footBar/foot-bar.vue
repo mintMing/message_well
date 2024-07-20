@@ -1,7 +1,7 @@
 <template>
-    <div class="foot-bar">
-        <div class="foot-bar-inner">
-            <div class="foot-left">
+    <div class="footer-bar">
+        <div class="footer-bar-inner">
+            <div class="footer-left">
                 <div class="logo">
                     <img
                         class="logo-img"
@@ -42,7 +42,7 @@
                     </a>
                 </div>
             </div>
-            <div class="foot-right">
+            <div class="footer-right">
                 <p class="title">联系方式</p>
                 <div class="right-inner">
                     <div>
@@ -57,14 +57,15 @@
 <script setup></script>
 
 <style scoped lang="scss">
-.foot-bar {
+$namespace: "footer-bar"; 
+.footer-bar {
     width: 100%;
     height: 200px;
     background: $gray-1;
     padding: 20px;
     box-sizing: border-box;
     margin-top: 40px;
-    .foot-bar-inner {
+    .footer-bar-inner {
         width: 1200px;
         margin: 0 auto;
         display: flex;
@@ -72,15 +73,15 @@
         p {
             color: rgba(255, 255, 255, 0.5);
         }
-        .foot-left,
+        .footer-left,
         .link,
-        .foot-right {
+        .footer-right {
             .title {
                 font-size: $size-16;
                 padding-bottom: 12px;
             }
         }
-        .foot-left {
+        .footer-left {
             .logo {
                 display: flex;
                 align-items: center;
@@ -118,7 +119,7 @@
                 }
             }
         }
-        .foot-right {
+        .footer-right {
             .right-inner {
                 img {
                     width: 100px;

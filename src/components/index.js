@@ -3,7 +3,7 @@ import CommonButton from "./button/common-button.vue";
 import FootBar from "./footBar/foot-bar.vue";
 import NodeCard from "./nodeCard/node-card.vue";
 import Modal from "./modal/modal.vue";
-import NewCard from "./newCard/new-card.vue"
+import NewCard from "./newCard/new-card.vue";
 
 const allGloablComponent = {
     TopBar,
@@ -11,7 +11,7 @@ const allGloablComponent = {
     FootBar,
     NodeCard,
     Modal,
-    NewCard
+    NewCard,
 };
 
 const aGCObj = {

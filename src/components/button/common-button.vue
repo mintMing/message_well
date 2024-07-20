@@ -23,6 +23,7 @@ $border-radius: 24px;
 .common-button {
     text-align: center;
     border: none;
+    cursor: pointer;
 }
 
 @mixin size-mixin {
@@ -70,7 +71,7 @@ $border-radius: 24px;
 }
 
 .secondary {
-    background: $gray-10;
+    // background: $gray-10;
     color: $gray-1;
     border: 1px solid $gray-1;
 }
