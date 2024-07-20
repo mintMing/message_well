@@ -20,7 +20,12 @@
                 maxlength="96"
                 v-model="message"
             ></textarea>
-            <input class="new-card__name" type="text" placeholder="签名" v-model="name" />
+            <input
+                class="new-card__name"
+                type="text"
+                placeholder="签名"
+                v-model="name"
+            />
         </main>
         <div class="new-labels">
             <p class="new-labels__title"></p>
@@ -62,7 +67,9 @@
             9、含有法律、行政法规禁止的其他内容的信息。
         </p>
         <div class="new-footer">
-            <CommonButton size="max" state="secondary" @click="dropDown">丢弃</CommonButton>
+            <CommonButton size="max" state="secondary" @click="dropDown">
+                丢弃
+            </CommonButton>
             <CommonButton class="new-footer__bt" size="max">确认</CommonButton>
         </div>
     </div>
@@ -95,13 +102,12 @@ const changeLabel = (index) => {
 const emit = defineEmits(["addClose"]);
 // 丢弃
 const dropDown = () => {
-    if(name.value == "" && message.value == "") {
-        emit("addClose", 0)
+    if (name.value == "" && message.value == "") {
+        emit("addClose", 0);
     } else {
         name.value = "";
         message.value = "";
     }
-
 };
 </script>
 
@@ -130,7 +136,7 @@ $namespace: "new";
         margin: 0 $padding-8 0 0;
         cursor: pointer;
         &.colorSelected {
-            border: 1px solid rgba(59, 115, 240, 1);
+            border: 1px solid $primary-color;
         }
     }
     @include e("main") {

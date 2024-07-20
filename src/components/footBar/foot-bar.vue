@@ -57,7 +57,7 @@
 <script setup></script>
 
 <style scoped lang="scss">
-$namespace: "footer-bar"; 
+$namespace: "footer-bar";
 .footer-bar {
     width: 100%;
     height: 200px;

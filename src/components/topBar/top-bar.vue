@@ -5,7 +5,7 @@
             <p class="logo-name">mint</p>
         </div>
         <div class="menu">
-            <CommonButton class="menu-mw" state="commonPrimary">
+            <CommonButton class="menu-mw" :state="commonPrimary">
                 留言墙
             </CommonButton>
             <CommonButton class="menu-pw" state="commonSecondary">
@@ -18,7 +18,16 @@
     </div>
 </template>
 
-<script setup></script>
+<script setup>
+import { computed } from "vue";
+import { useRoute } from "vue-router";
+
+const route = useRoute();
+
+const id = computed(() => {
+    return route.query.id;
+});
+</script>
 
 <style scoped lang="scss">
 .top-bar {

@@ -59,4 +59,22 @@ const cardColor1 = [
     "rgba(205, 92, 92, 1)",
 ];
 
-export { wallType, label, cardColor, cardColor1 };
+const headGradients = [  
+    "linear-gradient(90deg, #007BFF 0%, #FF5733 100%)",  
+    "linear-gradient(180deg, #6495ED 0%, #F08080 100%)",  
+    "linear-gradient(270deg, #90EE90 0%, #FFB6C1 100%)",  
+    "linear-gradient(360deg, #FFD700 0%, #ADD8E6 100%)",  
+    "linear-gradient(45deg, #F0FFFF 0%, #FAEBD7 100%)",  
+    "linear-gradient(135deg, #7FFFD4 0%, #F08080 100%)",  
+    "linear-gradient(225deg, #20B2AA 0%, #8A2BE2 100%)",  
+    "linear-gradient(315deg, #BA55D3 0%, #FF8C00 100%)",  
+    "linear-gradient(0deg, #9370DB 0%, #32CD32 100%)",  
+    "linear-gradient(90deg, #FF69B4 0%, #ADFF2F 100%)",  
+    "linear-gradient(180deg, #7CFC00 0%, #FFB6C1 100%)",  
+    "linear-gradient(270deg, #4B0082 0%, #FFFAF0 100%)",  
+    "linear-gradient(360deg, #F5FFFA 0%, #00FFFF 100%)",  
+    "linear-gradient(45deg, #F0FFFF 0%, #D2691E 100%)",  
+    "linear-gradient(135deg, #FF1493 0%, #00BFFF 100%)"  
+  ];
+
+export { wallType, label, cardColor, cardColor1, headGradients };

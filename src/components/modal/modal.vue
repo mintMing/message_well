@@ -2,7 +2,7 @@
     <Transition name="AniModal">
         <div class="modal" v-if="isVisible">
             <div class="modal-head">
-                <p class="modal-name">写留言</p>
+                <p class="modal-name">{{ title }}</p>
                 <span class="iconfont icon-guanbi" @click="closeModal"></span>
             </div>
             <main class="modal-main">

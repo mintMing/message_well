@@ -4,6 +4,7 @@ import FootBar from "./footBar/foot-bar.vue";
 import NodeCard from "./nodeCard/node-card.vue";
 import Modal from "./modal/modal.vue";
 import NewCard from "./newCard/new-card.vue";
+import CardDetail from "./cardDetail/card-detail.vue";
 
 const allGloablComponent = {
     TopBar,
@@ -12,6 +13,7 @@ const allGloablComponent = {
     NodeCard,
     Modal,
     NewCard,
+    CardDetail,
 };
 
 const aGCObj = {

@@ -21,18 +21,20 @@
             </p>
         </div>
         <div class="card">
-            <nodeCard
+            <NodeCard
                 v-for="(ele, index) in note.data"
                 :key="index"
                 :note="ele"
                 class="card-inner"
-            ></nodeCard>
+                :class="{ cardSelected: index == cardSelected }"
+                @click="selectdCard(index), changeCardCom()"
+            ></NodeCard>
         </div>
         <Transition name="AniAdd">
             <div
                 class="add"
                 :style="{ bottom: addBottom + 'px' }"
-                @click="changeModal"
+                @click="changeModal(), changeCardCom()"
                 v-show="!isModal"
             >
                 <span class="iconfont icon-tianjia"></span>
@@ -40,7 +42,16 @@
         </Transition>
 
         <Modal :title="wallTitle" @close="changeModal" :isVisible="isModal">
-            <NewCard :id="id" @addClose="changeModal"></NewCard>
+            <keep-alive>
+                <component
+                    :is="tabCom"
+                    :id="id"
+                    @addClose="changeModal"
+                    :card="note.data[cardSelected]"
+                ></component>
+            </keep-alive>
+            <!-- <NewCard :id="id" @addClose="changeModal" v-show="cardSelected==-1"></NewCard>
+            <CardDetail v-show="cardSelected!=-1"></CardDetail> -->
         </Modal>
     </div>
 </template>
@@ -50,12 +61,13 @@ import { wallType, label } from "../../../mock/data.js";
 import { ref, computed, onMounted, onUnmounted } from "vue";
 import { note } from "../../../mock/index.js";
 import { debounce } from "../../utils/index.js";
-import NewCard from "../../components/newCard/new-card.vue";
 
 const id = ref(0); // 留言墙和照片墙切换
 const labelIdx = ref(-1); // 对应的标签
 const addBottom = ref(30); // add按钮距离底部高度
 const wallTitle = ref("写留言"); // 留言墙或照片墙
+const cardSelected = ref(-1); // 当前选择的卡片
+const tabCom = ref("NewCard"); // 卡片组件
 
 // 标签的切换
 const selectcNode = (index) => {
@@ -64,7 +76,7 @@ const selectcNode = (index) => {
 
 /**
  * 动态调整主页添加留言的图标位置
- * 防抖
+ * 防抖且在组件卸载时移除监听
  */
 const scrollBottom = () => {
     const scrollTop =
@@ -91,8 +103,41 @@ onUnmounted(() => {
 // 是否关闭弹窗
 const isModal = ref(false);
 const changeModal = () => {
+    wallTitle.value = "写留言";
     isModal.value = !isModal.value;
 };
+
+// 选择卡片
+const selectdCard = (index) => {
+    wallTitle.value = "";
+    const wasSelected = index === cardSelected.value;
+    cardSelected.value = wasSelected ? -1 : index;
+    isModal.value = !wasSelected;
+};
+
+// 新建卡片
+// const addCard = () => {
+//     wallTitle.value = "写留言";
+//     changeModal();
+// };
+
+const changeCardCom = () => {
+    // console.log(note.data)
+    if (cardSelected.value === -1) {
+        tabCom.value = "NewCard";
+    } else {
+        tabCom.value = "CardDetail";
+    }
+};
+
+// const tabProp = computed(() => {
+//     if (tabCom.value === "NewCard") {
+//         return { id: id.value };
+//     } else if (tabCom.value === "CardDetail") {
+//         // Add other props if needed
+//         return {};
+//     }
+// });
 </script>
 
 <style scoped lang="scss">
@@ -162,6 +207,9 @@ const changeModal = () => {
         // grid: 0;
         .card-inner {
             margin: 6px;
+        }
+        .cardSelected {
+            border: 1px solid $primary-color;
         }
     }
     @media (max-width: 1300px) {
