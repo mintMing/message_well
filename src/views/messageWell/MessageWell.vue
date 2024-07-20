@@ -28,11 +28,18 @@
                 class="card-inner"
                 :class="{ cardSelected: index == cardSelected }"
                 @click="selectdCard(index), changeCardCom()"
-                v-show="id==0"
+                v-show="id == 0"
             ></NodeCard>
         </div>
-        <div class="photo" v-show="id==1">
-            <img :src="photoPath" alt="photo">
+        <div class="photo" v-show="id == 1">
+            <!-- <img :src="photoPath" alt="photo" /> -->
+            <PictureWall
+                :photo="ele"
+                v-for="(ele, index) in photo.data"
+                :key="index"
+                @click="selectdCard(index)"
+            ></PictureWall>
+            <!-- <WaterFall :photo="photoData"></WaterFall> -->
         </div>
         <Transition name="AniAdd">
             <div
@@ -57,23 +64,26 @@
             <!-- <NewCard :id="id" @addClose="changeModal" v-show="cardSelected==-1"></NewCard>
             <CardDetail v-show="cardSelected!=-1"></CardDetail> -->
         </Modal>
+        <Viewer :isView="view"></Viewer>
     </div>
 </template>
 
 <script setup>
 import { wallType, label } from "../../../mock/data.js";
-import { ref, computed, onMounted, onUnmounted } from "vue";
+import { ref, computed, onMounted, onUnmounted, watch } from "vue";
 import { note, photo } from "../../../mock/index.js";
 import { debounce } from "../../utils/index.js";
 import { useRoute } from "vue-router";
 
-// const id = ref(0); 
+// const id = ref(0);
 const labelIdx = ref(-1); // 对应的标签
 const addBottom = ref(30); // add按钮距离底部高度
 const wallTitle = ref("写留言"); // 留言墙或照片墙
 const cardSelected = ref(-1); // 当前选择的卡片
 const tabCom = ref("NewCard"); // 卡片组件
 const route = useRoute();
+const isModal = ref(false); // 是否关闭弹窗
+const view = ref(false); // 预览图片
 // const photoPath = ref(""); // 图片墙的路径
 
 // 标签的切换
@@ -107,11 +117,12 @@ onUnmounted(() => {
     window.removeEventListener("scroll", descrollBottom);
 });
 
-// 是否关闭弹窗
-const isModal = ref(false);
 const changeModal = () => {
     wallTitle.value = "写留言";
     isModal.value = !isModal.value;
+    if (id.value == 1) {
+        view.value = false;
+    }
 };
 
 // 选择卡片
@@ -120,6 +131,11 @@ const selectdCard = (index) => {
     const wasSelected = index === cardSelected.value;
     cardSelected.value = wasSelected ? -1 : index;
     isModal.value = !wasSelected;
+    if (id.value == 1) {
+        view.value = true;
+    } else {
+        view.value = false;
+    }
 };
 
 // 新建卡片
@@ -151,9 +167,39 @@ const id = computed(() => {
     return route.query.id;
 });
 
-const photoPath = computed(()=> {
-    return `./state/${photo.data[0].imgurl}.jpg`
-})
+const cards = computed(() => {
+    let a = "";
+    if (route.query.id == 0) {
+        a = note.data;
+    } else {
+        a = photo.data;
+    }
+    return a;
+});
+
+const photoData = ref([
+    { imgurl: "./state/0.jpg", like: 10 },
+    { imgurl: "./state/1.jpg", like: 20 },
+    { imgurl: "./state/2.jpg", like: 30 },
+    { imgurl: "./state/3.jpg", like: 30 },
+    { imgurl: "./state/4.jpg", like: 30 },
+    // 更多图片数据...
+]);
+
+const photoPath = computed(() => {
+    return `./state/${photo.data[0].imgurl}.jpg`;
+});
+
+//
+watch(
+    () => route.query.id,
+    (newVal, oldVal) => {
+        if(newVal == 0) {
+            view.value = false;
+            isModal.value = false;
+        }
+    },
+);
 </script>
 
 <style scoped lang="scss">
@@ -226,6 +272,17 @@ const photoPath = computed(()=> {
         }
         .cardSelected {
             border: 1px solid $primary-color;
+        }
+        .photo {
+            width: 88%;
+            margin: 0 auto;
+            columns: 6;
+            column-gap: $padding-4;
+            // display: flex;
+            // justify-content: center;
+        }
+        .photo-card {
+            margin-bottom: $padding-4;
         }
     }
     @media (max-width: 1300px) {

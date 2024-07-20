@@ -5,6 +5,9 @@ import NodeCard from "./nodeCard/node-card.vue";
 import Modal from "./modal/modal.vue";
 import NewCard from "./newCard/new-card.vue";
 import CardDetail from "./cardDetail/card-detail.vue";
+import PictureWall from "./pictureWall/picture-wall.vue";
+import WaterFall from "./waterFall/water-fall.vue";
+import Viewer from "./viewer/viewer.vue";
 
 const allGloablComponent = {
     TopBar,
@@ -14,6 +17,9 @@ const allGloablComponent = {
     Modal,
     NewCard,
     CardDetail,
+    PictureWall,
+    WaterFall,
+    Viewer,
 };
 
 const aGCObj = {

@@ -49,7 +49,7 @@ const changeWall = (val) => {
 };
 
 onMounted(() => {
-    monitorWindowSizeAndScroll();
+    // monitorWindowSizeAndScroll();
 });
 </script>
 
@@ -116,8 +116,9 @@ onMounted(() => {
     }
     .menu {
         display: flex;
-        flex-wrap: nowrap; 
-        .menu-mw, .menu-pw{
+        flex-wrap: nowrap;
+        .menu-mw,
+        .menu-pw {
             // margin-right: 24px;
 
             @media (max-width: 830px) {
