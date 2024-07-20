@@ -28,7 +28,11 @@
                 class="card-inner"
                 :class="{ cardSelected: index == cardSelected }"
                 @click="selectdCard(index), changeCardCom()"
+                v-show="id==0"
             ></NodeCard>
+        </div>
+        <div class="photo" v-show="id==1">
+            <img :src="photoPath" alt="photo">
         </div>
         <Transition name="AniAdd">
             <div
@@ -59,15 +63,18 @@
 <script setup>
 import { wallType, label } from "../../../mock/data.js";
 import { ref, computed, onMounted, onUnmounted } from "vue";
-import { note } from "../../../mock/index.js";
+import { note, photo } from "../../../mock/index.js";
 import { debounce } from "../../utils/index.js";
+import { useRoute } from "vue-router";
 
-const id = ref(0); // 留言墙和照片墙切换
+// const id = ref(0); 
 const labelIdx = ref(-1); // 对应的标签
 const addBottom = ref(30); // add按钮距离底部高度
 const wallTitle = ref("写留言"); // 留言墙或照片墙
 const cardSelected = ref(-1); // 当前选择的卡片
 const tabCom = ref("NewCard"); // 卡片组件
+const route = useRoute();
+// const photoPath = ref(""); // 图片墙的路径
 
 // 标签的切换
 const selectcNode = (index) => {
@@ -138,6 +145,15 @@ const changeCardCom = () => {
 //         return {};
 //     }
 // });
+
+// 留言墙和照片墙切换
+const id = computed(() => {
+    return route.query.id;
+});
+
+const photoPath = computed(()=> {
+    return `./state/${photo.data[0].imgurl}.jpg`
+})
 </script>
 
 <style scoped lang="scss">

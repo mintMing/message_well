@@ -22,8 +22,7 @@
                 <div
                     class="user-head"
                     :style="{ backgroundImage: headGradients[ele.imgurl] }"
-                >
-                </div>
+                ></div>
                 <main class="comm-m">
                     <div class="m-top">
                         <p class="name">{{ ele.name }}</p>

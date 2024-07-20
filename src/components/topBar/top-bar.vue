@@ -5,10 +5,18 @@
             <p class="logo-name">mint</p>
         </div>
         <div class="menu">
-            <CommonButton class="menu-mw" :state="commonPrimary">
+            <CommonButton
+                class="menu-mw"
+                :state="id == 0 ? 'commonPrimary' : 'commonSecondary'"
+                @click="changeWall(0)"
+            >
                 留言墙
             </CommonButton>
-            <CommonButton class="menu-pw" state="commonSecondary">
+            <CommonButton
+                class="menu-pw"
+                :state="id == 1 ? 'commonPrimary' : 'commonSecondary'"
+                @click="changeWall(1)"
+            >
                 照片墙
             </CommonButton>
         </div>
@@ -19,13 +27,29 @@
 </template>
 
 <script setup>
-import { computed } from "vue";
-import { useRoute } from "vue-router";
+import { computed, onMounted } from "vue";
+import { useRoute, useRouter } from "vue-router";
+import { monitorWindowSizeAndScroll } from "@/utils/test.js";
 
 const route = useRoute();
+const router = useRouter();
 
+// 缓存路由参数
 const id = computed(() => {
     return route.query.id;
+});
+
+// 切换
+const changeWall = (val) => {
+    router.push({
+        query: {
+            id: val,
+        },
+    });
+};
+
+onMounted(() => {
+    monitorWindowSizeAndScroll();
 });
 </script>
 
@@ -57,7 +81,7 @@ const id = computed(() => {
         .logo-img {
             height: 30px;
             width: 30px;
-            padding-left: 10px;
+            padding-left: 30px;
         }
         @media (max-wdith: 768px) {
             width: 200px;
@@ -91,12 +115,16 @@ const id = computed(() => {
         }
     }
     .menu {
-        .menu-mw {
-            margin-right: 24px;
-            @media (max-width: 768px) {
-                padding: 0 16px;
-                height: 32px;
-                font-size: 14px;
+        display: flex;
+        flex-wrap: nowrap; 
+        .menu-mw, .menu-pw{
+            // margin-right: 24px;
+
+            @media (max-width: 830px) {
+                transform: scale(0.7);
+                // flex: 2;
+                transition: $tr;
+                // background: red;
             }
         }
     }
