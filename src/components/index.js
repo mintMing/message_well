@@ -33,7 +33,7 @@ const aGCObj = {
 
         // ..
         // app.config.globalProperties.$message = Message;
-        app.provide("message", Message); 
+        app.provide("message", Message);
     },
 };
 

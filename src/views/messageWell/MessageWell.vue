@@ -41,6 +41,18 @@
             ></PictureWall>
             <!-- <WaterFall :photo="photoData"></WaterFall> -->
         </div>
+        <!-- 卡片状态 -->
+        <div class="none-msg" v-if="isNoted == 0">
+            <img :src="none[id].url" />
+            <!-- <img src="../../assets/images/小猫灰灰.svg" /> -->
+            <p>{{ none[id].msg }}</p>
+        </div>
+        <div class="loading" v-show="isNoted == -1">
+            <div id="lottile">
+                <p class="bottom-tip" v-show="isNoted == 2">加载中...</p>
+            </div>
+        </div>
+        <p class="bottom-tip">没有更多了...</p>
         <Transition name="AniAdd">
             <div
                 class="add"
@@ -72,10 +84,12 @@
 
 <script setup>
 import { wallType, label } from "../../../mock/data.js";
-import { ref, computed, onMounted, onUnmounted, watch } from "vue";
-import { note, photo } from "../../../mock/index.js";
+import { ref, computed, onMounted, onUnmounted, watch, nextTick } from "vue";
+import { photo } from "../../../mock/index.js";
 import { debounce } from "../../utils/index.js";
 import { useRoute } from "vue-router";
+import lottie from "lottie-web";
+import loading from "../../assets/images/empty_compare_list.json";
 
 // const id = ref(0);
 const labelIdx = ref(-1); // 对应的标签
@@ -87,6 +101,19 @@ const route = useRoute();
 const isModal = ref(false); // 是否关闭弹窗
 const view = ref(false); // 预览图片
 // const photoPath = ref(""); // 图片墙的路径
+const note = ref(""); // 留言墙卡片集合
+const isNoted = ref(-1); // 是否为加载状态 -1为加载中、0为没有拿到数据
+const none = ref([
+    // 加载状态的图片
+    {
+        url: `src/assets/images/小猫灰灰.svg`,
+        msg: "还没有留言，快贴上第一张吧。",
+    },
+    {
+        url: `src/assets/images/旺财旺财.svg`,
+        msg: "还没有照片，快贴上第一张吧。",
+    },
+]);
 
 // 标签的切换
 const selectcNode = (index) => {
@@ -113,6 +140,7 @@ const descrollBottom = debounce(scrollBottom, 10, false);
 
 onMounted(() => {
     window.addEventListener("scroll", descrollBottom);
+    load();
 });
 
 onUnmounted(() => {
@@ -172,7 +200,7 @@ const id = computed(() => {
 const cards = computed(() => {
     let a = "";
     if (route.query.id == 0) {
-        a = note.data;
+        a = note.value.data;
     } else {
         a = photo.data;
     }
@@ -205,8 +233,24 @@ watch(
 
 // 创建新卡片 数据来源 new-card 组件
 const addCard = (event) => {
-    console.log(event)
-}
+    console.log(event);
+};
+
+// 加载动画
+const load = () => {
+    if (isNoted.value == -1) {
+        nextTick(async () => {
+            const params = {
+                container: document.getElementById("lottile"),
+                renderer: "svg",
+                loop: true,
+                autoplay: true,
+                animationData: loading,
+            };
+            lottie.loadAnimation(params);
+        });
+    }
+};
 </script>
 
 <style scoped lang="scss">
@@ -320,6 +364,43 @@ const addCard = (event) => {
             font-size: 24px;
         }
     }
+    .none-msg {
+        width: 100%;
+        text-align: center;
+        padding-top: 80px;
+        position: absolute;
+        top: 280px;
+        img {
+            display: inline;
+            max-width: 100px;
+        }
+        p {
+            font-family: serif;
+            font-weight: 700;
+            font-size: 24px;
+            color: $gray-3;
+        }
+    }
+    .loading {
+        text-align: center;
+        width: 100%;
+        p {
+            margin-top: -72px;
+            font-family: serif;
+            font-size: 24px;
+            color: $gray-3;
+        }
+    }
+    .bottom-tip {
+        text-align: center;
+        color: $gray-3;
+        padding: $padding-20;
+    }
+}
+
+#lottile {
+    margin-top: 20px;
+    height: 200px;
 }
 
 .AniAdd {

@@ -21,7 +21,4 @@ const insertWallApi = (data) => {
     return axiosInstance.post(_api[0].CREATEMESSAGES_URL, data);
 };
 
-export {
-    signipApi,
-    insertWallApi,
-}
+export { signipApi, insertWallApi };

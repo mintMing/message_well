@@ -2,7 +2,10 @@
     <Transition name="down">
         <div class="message" v-if="isShow">
             <div class="message-i">
-                <i class="iconfont icon-icon-warning" :class="style[props.type].icon"></i>
+                <i
+                    class="iconfont icon-icon-warning"
+                    :class="style[props.type].icon"
+                ></i>
                 <span class="text">{{ message }}</span>
             </div>
         </div>
@@ -25,7 +28,7 @@ const props = defineProps({
     },
 });
 
-const style = ref ({
+const style = ref({
     warning: {
         icon: "icon-icon_warning",
     },
@@ -37,7 +40,7 @@ const style = ref ({
     },
 });
 
-console.log(style.value[props.type].icon)
+console.log(style.value[props.type].icon);
 
 onMounted(() => {
     isShow.value = true;

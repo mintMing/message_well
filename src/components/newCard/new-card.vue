@@ -13,7 +13,7 @@
         <!-- 照片 -->
         <div class="add-photo" v-if="id == 1">
             <input
-                type="file" 
+                type="file"
                 name="file"
                 id="file"
                 multiple
@@ -26,13 +26,16 @@
                 <span class="iconfont icon-xiugai"></span>
             </div>
             <div class="photo-div">
-                <img :src="url"/>
+                <img :src="url" />
             </div>
         </div>
         <!-- 留言卡片 -->
         <main
             class="new-card__main"
-            :style="{ backgroundColor: id == 0 ? cardColor[colorSelected] : cardColor[5] }"
+            :style="{
+                backgroundColor:
+                    id == 0 ? cardColor[colorSelected] : cardColor[5],
+            }"
         >
             <textarea
                 class="new-card__message"
@@ -99,7 +102,7 @@
 
 <script setup>
 import { cardColor, cardColor1, label } from "../../../mock/data.js";
-import { ref, inject  } from "vue";
+import { ref, inject } from "vue";
 import useNewCard from "../../store/modules/newCard.js";
 import { getObjectURL } from "../../utils/tool.js";
 import { insertWallApi } from "../../api/index.js";
@@ -154,13 +157,13 @@ const submit = () => {
     };
     // console.log(data);
     // 卡片有内容且处于留言墙
-    if(message.value && props.id == 0) {
+    if (message.value && props.id == 0) {
         data.color = colorSelected.value;
-        insertWallApi(data).then(()=> {
+        insertWallApi(data).then(() => {
             message.value = "";
             emit("submitted", data);
-            $message({ type: "success", message: "感谢你的记录！"})
-        })
+            $message({ type: "success", message: "感谢你的记录！" });
+        });
     }
 };
 
@@ -168,7 +171,7 @@ const submit = () => {
 const showPhoto = () => {
     const file = getObjectURL(document.getElementById("file").files[0]);
     url.value = file;
-}
+};
 </script>
 
 <style lang="scss">
@@ -281,7 +284,7 @@ $namespace: "new";
 }
 
 .add-photo {
-    padding-bottom: 20px; 
+    padding-bottom: 20px;
     position: relative;
     #file {
         position: absolute;
@@ -323,7 +326,7 @@ $namespace: "new";
         height: 40px;
         width: 40px;
         border-radius: 50%;
-        background: rgba(0,0,0,0.3);
+        background: rgba(0, 0, 0, 0.3);
         display: flex;
         align-items: center;
         justify-content: center;

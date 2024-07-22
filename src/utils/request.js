@@ -5,7 +5,7 @@ const axiosInstance = axios.create({
     timeout: 5000,
     headers: {
         "api-version": "v1",
-    }
+    },
 });
 
 axiosInstance.interceptors.request.use(

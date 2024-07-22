@@ -21,18 +21,17 @@ const useStore = useNewCard();
 
 const getUser = () => {
     signipApi().then((res) => {
-        const cleanIp = res.ip.replace("::ffff:", "");  
-        useStore.getUser(cleanIp); 
+        const cleanIp = res.ip.replace("::ffff:", "");
+        useStore.getUser(cleanIp);
         // console.log(useStore.state.user)
     });
 };
 
 getUser();
 
-onMounted(()=> {
-    console.log(useStore.state.user)
-})
-
+onMounted(() => {
+    console.log(useStore.state.user);
+});
 </script>
 
 <style scoped lang="scss">
