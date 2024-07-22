@@ -8,6 +8,8 @@ import CardDetail from "./cardDetail/card-detail.vue";
 import PictureWall from "./pictureWall/picture-wall.vue";
 import WaterFall from "./waterFall/water-fall.vue";
 import Viewer from "./viewer/viewer.vue";
+import MessageReminder from "./messageReminder/message-reminder.vue";
+import Message from "./messageReminder/messageReminder.js";
 
 const allGloablComponent = {
     TopBar,
@@ -20,6 +22,7 @@ const allGloablComponent = {
     PictureWall,
     WaterFall,
     Viewer,
+    MessageReminder,
 };
 
 const aGCObj = {
@@ -27,6 +30,10 @@ const aGCObj = {
         Object.keys(allGloablComponent).forEach((key) => {
             app.component(key, allGloablComponent[key]);
         });
+
+        // ..
+        // app.config.globalProperties.$message = Message;
+        app.provide("message", Message); 
     },
 };
 

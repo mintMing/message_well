@@ -23,7 +23,7 @@ const props = defineProps({
     },
 });
 
-console.log(props.photo.imgurl);
+// console.log(props.photo.imgurl);
 </script>
 
 <style scoped lang="scss">
@@ -32,7 +32,7 @@ console.log(props.photo.imgurl);
     .photo-img {
         // width: 100%;
         max-width: 300px;
-        max-height:500px;
+        max-height: 500px;
     }
     .photo-bg {
         position: absolute;

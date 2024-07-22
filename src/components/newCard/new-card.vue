@@ -1,6 +1,6 @@
 <template>
     <div class="new-card">
-        <div class="new-card__colors">
+        <div class="new-card__colors" v-show="id == 0">
             <p
                 class="new-card__color"
                 v-for="(ele, index) in cardColor1"
@@ -10,9 +10,29 @@
                 @click="changeColor(index)"
             ></p>
         </div>
+        <!-- 照片 -->
+        <div class="add-photo" v-if="id == 1">
+            <input
+                type="file" 
+                name="file"
+                id="file"
+                multiple
+                @change="showPhoto"
+            />
+            <div class="add-bt" v-if="url == ''">
+                <span class="iconfont icon-tianjia"></span>
+            </div>
+            <div class="change-bt" v-if="url != ''">
+                <span class="iconfont icon-xiugai"></span>
+            </div>
+            <div class="photo-div">
+                <img :src="url"/>
+            </div>
+        </div>
+        <!-- 留言卡片 -->
         <main
             class="new-card__main"
-            :style="{ backgroundColor: cardColor[colorSelected] }"
+            :style="{ backgroundColor: id == 0 ? cardColor[colorSelected] : cardColor[5] }"
         >
             <textarea
                 class="new-card__message"
@@ -70,19 +90,28 @@
             <CommonButton size="max" state="secondary" @click="dropDown">
                 丢弃
             </CommonButton>
-            <CommonButton class="new-footer__bt" size="max">确认</CommonButton>
+            <CommonButton class="new-footer__bt" size="max" @click="submit">
+                确认
+            </CommonButton>
         </div>
     </div>
 </template>
 
 <script setup>
 import { cardColor, cardColor1, label } from "../../../mock/data.js";
-import { ref } from "vue";
+import { ref, inject  } from "vue";
+import useNewCard from "../../store/modules/newCard.js";
+import { getObjectURL } from "../../utils/tool.js";
+import { insertWallApi } from "../../api/index.js";
 
 const colorSelected = ref(0); // 当前选择的颜色
 const labelIndex = ref(0); // 当前选择的标签
 const message = ref(""); // 留言信息
 const name = ref(""); // 签名
+const useStore = useNewCard();
+const user = useStore.state.user;
+const url = ref(""); // 图片 url
+const $message = inject("message");
 
 const changeColor = (index) => {
     colorSelected.value = index;
@@ -99,7 +128,7 @@ const changeLabel = (index) => {
     labelIndex.value = index;
 };
 
-const emit = defineEmits(["addClose"]);
+const emit = defineEmits(["addClose", "submitted"]);
 // 丢弃
 const dropDown = () => {
     if (name.value == "" && message.value == "") {
@@ -109,6 +138,37 @@ const dropDown = () => {
         message.value = "";
     }
 };
+
+// 创建新卡片
+const submit = () => {
+    const anonymous = "匿名";
+    let data = {
+        type: props.id,
+        message: message.value,
+        name: name.value ? name.value : anonymous,
+        user_id: user,
+        moment: new Date(),
+        label: labelIndex.value,
+        color: 5,
+        imgurl: "",
+    };
+    // console.log(data);
+    // 卡片有内容且处于留言墙
+    if(message.value && props.id == 0) {
+        data.color = colorSelected.value;
+        insertWallApi(data).then(()=> {
+            message.value = "";
+            emit("submitted", data);
+            $message({ type: "success", message: "感谢你的记录！"})
+        })
+    }
+};
+
+// 图片显示
+const showPhoto = () => {
+    const file = getObjectURL(document.getElementById("file").files[0]);
+    url.value = file;
+}
 </script>
 
 <style lang="scss">
@@ -217,6 +277,59 @@ $namespace: "new";
     @include e("bt") {
         margin-left: $padding-20;
         width: 200px;
+    }
+}
+
+.add-photo {
+    padding-bottom: 20px; 
+    position: relative;
+    #file {
+        position: absolute;
+        z-index: 10;
+        top: -10px;
+        height: 74px;
+        width: 64px;
+        opacity: 0;
+        cursor: pointer;
+    }
+    .add-bt {
+        width: 64px;
+        height: 64px;
+        border: 1px solid $gray-3;
+        border-radius: 32px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        .icon-tianjia {
+            font-size: 24px;
+        }
+    }
+    .photo-div {
+        max-height: 200px;
+        width: 100%;
+        background: #f0f0f0;
+        overflow: hidden;
+        display: flex;
+        align-items: center;
+        img {
+            width: 100%;
+        }
+    }
+    .change-bt {
+        position: absolute;
+        top: 12px;
+        left: 12px;
+        height: 40px;
+        width: 40px;
+        border-radius: 50%;
+        background: rgba(0,0,0,0.3);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        .icon-xiugai {
+            color: #fff;
+        }
     }
 }
 </style>

@@ -59,12 +59,14 @@
                     :id="id"
                     @addClose="changeModal"
                     :card="note.data[cardSelected]"
+                    @submitted="addCard"
                 ></component>
             </keep-alive>
             <!-- <NewCard :id="id" @addClose="changeModal" v-show="cardSelected==-1"></NewCard>
             <CardDetail v-show="cardSelected!=-1"></CardDetail> -->
         </Modal>
         <Viewer :isView="view"></Viewer>
+        <MessageReminder type="warning" message="测试"></MessageReminder>
     </div>
 </template>
 
@@ -194,12 +196,17 @@ const photoPath = computed(() => {
 watch(
     () => route.query.id,
     (newVal, oldVal) => {
-        if(newVal == 0) {
+        if (newVal == 0) {
             view.value = false;
             isModal.value = false;
         }
     },
 );
+
+// 创建新卡片 数据来源 new-card 组件
+const addCard = (event) => {
+    console.log(event)
+}
 </script>
 
 <style scoped lang="scss">

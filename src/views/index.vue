@@ -12,7 +12,28 @@
     </div>
 </template>
 
-<script setup></script>
+<script setup>
+import { signipApi } from "../api/index.js";
+import useNewCard from "../store/modules/newCard.js";
+import { onMounted } from "vue";
+
+const useStore = useNewCard();
+
+const getUser = () => {
+    signipApi().then((res) => {
+        const cleanIp = res.ip.replace("::ffff:", "");  
+        useStore.getUser(cleanIp); 
+        // console.log(useStore.state.user)
+    });
+};
+
+getUser();
+
+onMounted(()=> {
+    console.log(useStore.state.user)
+})
+
+</script>
 
 <style scoped lang="scss">
 .wall-index {
