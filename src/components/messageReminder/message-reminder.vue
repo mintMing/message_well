@@ -40,7 +40,7 @@ const style = ref({
     },
 });
 
-console.log(style.value[props.type].icon);
+// console.log(style.value[props.type].icon);
 
 onMounted(() => {
     isShow.value = true;

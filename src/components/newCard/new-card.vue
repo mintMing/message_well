@@ -102,17 +102,17 @@
 
 <script setup>
 import { cardColor, cardColor1, label } from "../../../mock/data.js";
-import { ref, inject } from "vue";
+import { ref, inject, computed } from "vue";
 import useNewCard from "../../store/modules/newCard.js";
 import { getObjectURL } from "../../utils/tool.js";
-import { insertWallApi } from "../../api/index.js";
+import { insertWallApi, profileApi } from "../../api/index.js";
 
 const colorSelected = ref(0); // 当前选择的颜色
 const labelIndex = ref(0); // 当前选择的标签
 const message = ref(""); // 留言信息
 const name = ref(""); // 签名
 const useStore = useNewCard();
-const user = useStore.state.user;
+const user = computed(() => useStore.getUser());
 const url = ref(""); // 图片 url
 const $message = inject("message");
 
@@ -142,35 +142,95 @@ const dropDown = () => {
     }
 };
 
-// 创建新卡片
-const submit = () => {
-    const anonymous = "匿名";
-    let data = {
-        type: props.id,
-        message: message.value,
-        name: name.value ? name.value : anonymous,
-        user_id: user,
-        moment: new Date(),
-        label: labelIndex.value,
-        color: 5,
-        imgurl: "",
+// 卡片数据对象
+const createCardData = (
+    id,
+    message,
+    name,
+    userId,
+    moment,
+    label,
+    color,
+    imgUrl,
+    cardId = null,
+) => {
+    return {
+        type: id,
+        message,
+        name: name || "匿名",
+        user_id: userId,
+        moment: new Date(moment || new Date()), // 如果moment未定义，则使用当前时间
+        label,
+        color,
+        img_url: imgUrl || "",
+        id: cardId,
+        islike: { count: 0 },
+        like: { count: 0 },
+        comcount: { count: 0 },
+        report: { count: 0 },
+        revoke: { count: 0 },
     };
-    // console.log(data);
-    // 卡片有内容且处于留言墙
-    if (message.value && props.id == 0) {
-        data.color = colorSelected.value;
-        insertWallApi(data).then(() => {
-            message.value = "";
-            emit("submitted", data);
-            $message({ type: "success", message: "感谢你的记录！" });
-        });
-    }
 };
 
-// 图片显示
 const showPhoto = () => {
     const file = getObjectURL(document.getElementById("file").files[0]);
     url.value = file;
+};
+
+const submitCard = (apiData) => {
+    insertWallApi(apiData).then((res) => {
+        const newCardData = createCardData(
+            apiData.type,
+            apiData.message,
+            apiData.name,
+            apiData.user_id,
+            apiData.moment,
+            apiData.label,
+            apiData.color,
+            apiData.img_url,
+            res.message.id,
+        );
+
+        emit("submitted", newCardData);
+        message.value = "";
+        $message({ type: "success", message: "感谢你的记录！" });
+    });
+};
+
+const submit = () => {
+    if (!message.value) {
+        $message({ type: "warning", message: "留言为空！" });
+        return; 
+    }
+
+    const apiData = createCardData(
+        props.id,
+        message.value,
+        name.value,
+        user.value,
+        null,
+        labelIndex.value,
+        colorSelected.value,
+        "",
+    );
+
+    if (props.id == 0) {
+        submitCard(apiData);
+    } else if (props.id == 1 && url.value) {
+        imgSubmit(apiData);
+    }
+};
+
+const imgSubmit = (data) => {
+    const fileDom = document.getElementById("file");
+    if (fileDom.files.length > 0) {
+        const formData = new FormData();
+        formData.append("file", fileDom.files[0]);
+        profileApi(formData).then((res) => {
+            data.img_url = res;
+            submitCard(data);
+        });
+    }
 };
 </script>
 

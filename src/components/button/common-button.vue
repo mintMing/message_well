@@ -75,4 +75,10 @@ $border-radius: 24px;
     color: $gray-1;
     border: 1px solid $gray-1;
 }
+
+
+.noTall {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
 </style>

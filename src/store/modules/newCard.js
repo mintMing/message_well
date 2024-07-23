@@ -11,10 +11,14 @@ const useNewCard = defineStore("newCard", () => {
         state.value.count++;
     }
 
-    function getUser(val) {
+    function setUser(val) {
         state.value.user = val;
     }
-    return { increment, getUser, state };
+
+    function getUser() {
+        return state.value.user;
+    }
+    return { increment, setUser, getUser };
 });
 
 export default useNewCard;

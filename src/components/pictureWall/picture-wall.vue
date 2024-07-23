@@ -1,21 +1,28 @@
 <template>
     <div class="photo-card">
-        <img class="photo-img" :src="photoPath" alt="photo" />
+        <img
+            class="photo-img"
+            :src="baseUrl + props.photo.img_url"
+            alt="photo"
+            @click="toDetailCard"
+        />
         <div class="photo-bg"></div>
-        <div class="photo-like">
-            <span class="iconfont icon-aixin"></span>
-            <span class="like-data">{{ props.photo.like }}</span>
+        <div class="photo-like" @click="iLike">
+            <span
+                class="iconfont icon-aixin"
+                :class="props.note.islike.count > 0"
+            ></span>
+            <span class="like-data">{{ props.photo.like.count }}</span>
         </div>
+        <p>{{ props.photo.img_url }}</p>
     </div>
 </template>
 
 <script setup>
-import { photo } from "../../../mock/index.js";
-import { ref, computed, onMounted, onUnmounted } from "vue";
+// import { photo } from "../../../mock/index.js";
+import { ref, computed } from "vue";
 
-const photoPath = computed(() => {
-    return `../../../../state/${props.photo.imgurl}.jpg`;
-});
+const baseUrl = ref(import.meta.env.VITE_SERVE);
 
 const props = defineProps({
     photo: {
@@ -23,7 +30,28 @@ const props = defineProps({
     },
 });
 
-// console.log(props.photo.imgurl);
+const emit = defineEmits(["nodeToDetail"]);
+
+const toDetailCard = () => {
+    emit("nodeToDetail");
+};
+
+const iLike = () => {
+    if (props.note.islike.count == 0) {
+        const reqData = {
+            wall_id: props.note.id,
+            user_id: user,
+            type: 0,
+            moment: new Date(),
+        };
+        insertFeedbackApi(reqData).then(() => {
+            props.note.like.count++;
+            props.note.islike.count++;
+        });
+    }
+};
+
+console.log("picture ：" + props.photo);
 </script>
 
 <style scoped lang="scss">
@@ -69,6 +97,9 @@ const props = defineProps({
     &:hover {
         .photo-bg {
             opacity: 1;
+        }
+        .islike {
+            color: $like;
         }
         .photo-like {
             opacity: 1;

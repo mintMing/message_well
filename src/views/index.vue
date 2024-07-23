@@ -19,19 +19,16 @@ import { onMounted } from "vue";
 
 const useStore = useNewCard();
 
-const getUser = () => {
+const getUserId = () => {
     signipApi().then((res) => {
         const cleanIp = res.ip.replace("::ffff:", "");
-        useStore.getUser(cleanIp);
-        // console.log(useStore.state.user)
+        useStore.setUser(cleanIp);
+        // console.log(useStore.getUser()); // 有值
     });
 };
 
-getUser();
 
-onMounted(() => {
-    console.log(useStore.state.user);
-});
+getUserId();
 </script>
 
 <style scoped lang="scss">
