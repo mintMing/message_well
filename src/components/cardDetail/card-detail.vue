@@ -50,7 +50,15 @@
 </template>
 
 <script setup>
-import { computed, ref, inject, reactive, onMounted, watch, watchEffect } from "vue";
+import {
+    computed,
+    ref,
+    inject,
+    reactive,
+    onMounted,
+    watch,
+    watchEffect,
+} from "vue";
 // import { note, comment } from "../../../mock";
 import { headGradients } from "../../../mock/data.js";
 import { formatDate } from "@/utils/tool.js";

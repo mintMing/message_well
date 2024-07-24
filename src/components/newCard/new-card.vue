@@ -200,7 +200,7 @@ const submitCard = (apiData) => {
 const submit = () => {
     if (!message.value) {
         $message({ type: "warning", message: "留言为空！" });
-        return; 
+        return;
     }
 
     const apiData = createCardData(

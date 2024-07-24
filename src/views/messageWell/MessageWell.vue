@@ -267,7 +267,7 @@ const getWallCard = (wallTypeId) => {
         user_id: user.value,
         label: labelIdx.value, // 为-1时获取所有数据
     };
-    console.log("getWallCard: " + wallTypeId)
+    console.log("getWallCard: " + wallTypeId);
     findWallPageApi(data).then((res) => {
         if (res && res.message && res.message.length > 0) {
             cards.splice(0, 0, ...res.message);

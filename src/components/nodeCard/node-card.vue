@@ -56,31 +56,30 @@ const props = defineProps({
 const useStore = useNewCard();
 const user = useStore.getUser();
 
-const emit = defineEmits(["nodeToDetail"])
+const emit = defineEmits(["nodeToDetail"]);
 
 const toDetailCard = () => {
     emit("nodeToDetail");
-}
+};
 
 const iLike = () => {
-    if(props.note.islike.count == 0) {
+    if (props.note.islike.count == 0) {
         const reqData = {
             wall_id: props.note.id,
             user_id: user,
             type: 0,
             moment: new Date(),
-        }
-        insertFeedbackApi(reqData).then(()=> {
+        };
+        insertFeedbackApi(reqData).then(() => {
             props.note.like.count++;
             props.note.islike.count++;
-        })
+        });
     }
-}
+};
 
 /**
  * 删除反馈数据
  */
-
 
 // watch(
 //     () => props.note,

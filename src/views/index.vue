@@ -27,7 +27,6 @@ const getUserId = () => {
     });
 };
 
-
 getUserId();
 </script>
 
